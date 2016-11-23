@@ -42,8 +42,8 @@ public class GameSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws AuthenticationException {
-//        final Long id = (Long) webSocketSession.getAttributes().get("userId");
-        final Long id = 5l;
+        final Long id = (Long) webSocketSession.getAttributes().get("userId");
+//        final Long id = 5l;
 
         if (id == null || accountService.getUserById(id) == null) {
             throw new AuthenticationException("Only authenticated users allowed to play a game");

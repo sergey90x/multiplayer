@@ -1,6 +1,7 @@
 package ru.mail.park.main;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,11 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.mail.park.responseInJson.IdResponse;
 import ru.mail.park.responseInJson.RegistrationRequest;
 import ru.mail.park.responseInJson.SuccessResponse;
@@ -117,12 +114,21 @@ public class RegistrationController {
     final UserProfile user = accountService.existingUserByLogin(login);
 
     if(user != null && !password.equals(user.getPassword())){
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"invalid login or password\"}");
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"error\":\"invalid login or password\"}");
     }
 
     httpSession.setAttribute("userId", user.getId());
 
     return ResponseEntity.ok().body("{\"sessionId\":\" " + httpSession.getId() + " \"}");
+  }
+
+  @RequestMapping(value = "/api/auth", method = RequestMethod.GET)
+  public ResponseEntity isauth(){
+    if(isNull(httpSession.getAttribute("userId"))){
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\":\"Access allowed only for registered users\"}");
+    }
+
+    return ResponseEntity.ok().body("User logged in");
   }
 
 }
