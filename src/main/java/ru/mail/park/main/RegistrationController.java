@@ -13,12 +13,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.sockjs.transport.session.WebSocketServerSockJsSession;
 import ru.mail.park.responseInJson.IdResponse;
 import ru.mail.park.responseInJson.RegistrationRequest;
 import ru.mail.park.responseInJson.SuccessResponse;
 import ru.mail.park.model.UserProfile;
 import ru.mail.park.service.AccountService;
 
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +32,7 @@ public class RegistrationController {
 
   @Autowired
   private HttpSession httpSession;
+
 
   @Autowired
   private AccountService accountService;
@@ -71,6 +75,7 @@ public class RegistrationController {
     accountService.removeUserById(id);
     return ResponseEntity.ok("User removed");
   }
+
 
   @RequestMapping(value = "/api/users", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> signup(@RequestBody RegistrationRequest body) {
@@ -121,6 +126,8 @@ public class RegistrationController {
 
     return ResponseEntity.ok().body("{\"sessionId\":\" " + httpSession.getId() + " \"}");
   }
+
+
 
   @RequestMapping(value = "/api/auth", method = RequestMethod.GET)
   public ResponseEntity isauth(){

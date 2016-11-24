@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -14,6 +15,7 @@ import ru.mail.park.pinger.PingService;
 import ru.mail.park.service.AccountService;
 
 import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -31,6 +33,9 @@ public class GameSocketHandler extends TextWebSocketHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Autowired
+    public HttpSession httpSession;
+
 
     public GameSocketHandler(@NotNull MessageHandlerContainer messageHandlerContainer, @NotNull PingService pingService,
                              @NotNull AccountService authService, @NotNull RemotePointService remotePointService) {
@@ -42,6 +47,8 @@ public class GameSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws AuthenticationException {
+       //System.out.println(httpSession.getAttribute("userId"));
+        httpSession.setAttribute("userId", 6);
         final Long id = (Long) webSocketSession.getAttributes().get("userId");
 //        final Long id = 5l;
 
