@@ -1,6 +1,7 @@
 package ru.mail.park.main;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -104,11 +105,12 @@ public class RegistrationController {
     final Long id = accountService.addUser(login, name, password, email);
 
 
+
     return ResponseEntity.ok(new IdResponse(id));
   }
 
   @RequestMapping(value = "/api/sessions", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, headers="Accept=*/*")
-  public ResponseEntity signin(@RequestBody RegistrationRequest body) {
+  public ResponseEntity signin(@RequestBody RegistrationRequest body, HttpServletRequest request, HttpServletResponse response) {
     final String login = body.getLogin();
     final String password = body.getPassword();
 
@@ -123,6 +125,10 @@ public class RegistrationController {
     }
 
     httpSession.setAttribute("userId", user.getId());
+
+    Cookie cookie = new Cookie("userId", httpSession.getId());
+    cookie.setMaxAge(3600);
+    response.addCookie(cookie);
 
     return ResponseEntity.ok().body("{\"sessionId\":\" " + httpSession.getId() + " \"}");
   }
