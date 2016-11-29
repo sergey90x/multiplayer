@@ -127,8 +127,11 @@ public class RegistrationController {
     httpSession.setAttribute("userId", user.getId());
 
     Cookie cookie = new Cookie("userId", httpSession.getId());
-    cookie.setMaxAge(3600);
+    cookie.setMaxAge(2592000);
+    cookie.setDomain("http://localhost:8080");
+    cookie.setPath("/");
     response.addCookie(cookie);
+
 
     return ResponseEntity.ok().body("{\"sessionId\":\" " + httpSession.getId() + " \"}");
   }
