@@ -24,8 +24,8 @@ public class GameSocketHandler extends TextWebSocketHandler {
 
     @NotNull
     private AccountService accountService;
-    @NotNull
-    private PingService pingService;
+//    @NotNull
+//    private PingService pingService;
     @NotNull
     private final MessageHandlerContainer messageHandlerContainer;
     @NotNull
@@ -40,17 +40,14 @@ public class GameSocketHandler extends TextWebSocketHandler {
     public GameSocketHandler(@NotNull MessageHandlerContainer messageHandlerContainer, @NotNull PingService pingService,
                              @NotNull AccountService authService, @NotNull RemotePointService remotePointService) {
         this.messageHandlerContainer = messageHandlerContainer;
-        this.pingService = pingService;
+//        this.pingService = pingService;
         this.accountService = authService;
         this.remotePointService = remotePointService;
     }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession webSocketSession) throws AuthenticationException {
-       //System.out.println(httpSession.getAttribute("userId"));
-        httpSession.setAttribute("userId", 6);
         final Long id = (Long) webSocketSession.getAttributes().get("userId");
-//        final Long id = 5l;
 
         if (id == null || accountService.getUserById(id) == null) {
             throw new AuthenticationException("Only authenticated users allowed to play a game");
@@ -77,6 +74,7 @@ public class GameSocketHandler extends TextWebSocketHandler {
         final Message message;
         try {
             message = objectMapper.readValue(text.getPayload(), Message.class);
+
         } catch (IOException ex) {
             LOGGER.error("wrong json format at ping response", ex);
             return;

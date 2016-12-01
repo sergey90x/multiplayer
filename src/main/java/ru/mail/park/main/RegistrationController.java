@@ -23,6 +23,8 @@ import ru.mail.park.model.UserProfile;
 import ru.mail.park.service.AccountService;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,6 +46,8 @@ public class RegistrationController {
   @RequestMapping(value = "/api/users", method = RequestMethod.GET)
   public ResponseEntity<String> getAllUsers() {
       objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+    Map<Integer, Integer> mapp = new HashMap();
 
         String arrayToJson = null;
       try {
@@ -134,6 +138,15 @@ public class RegistrationController {
 
 
     return ResponseEntity.ok().body("{\"sessionId\":\" " + httpSession.getId() + " \"}");
+  }
+
+  @RequestMapping(value = "/api/sessions", method = RequestMethod.DELETE)
+  public ResponseEntity deleteSession(){
+    if(isNull(httpSession.getAttribute("userId"))){
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\":\"there is no session\"}");
+    }
+    httpSession.invalidate();
+    return ResponseEntity.ok().body("Session unvalideate");
   }
 
 
