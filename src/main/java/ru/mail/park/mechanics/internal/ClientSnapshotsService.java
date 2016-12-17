@@ -96,7 +96,7 @@ public class ClientSnapshotsService {
                 moveSquareBy(gameUser.getSquare(), x, y);
                 break;
             }
-            case "f": {
+            case "d": {
                 vx = (40 * sincos.sin);
                 vy = -1 * (40 * sincos.cos);
                 x += vx / 100 * frameTime;

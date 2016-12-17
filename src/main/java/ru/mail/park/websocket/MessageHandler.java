@@ -19,10 +19,10 @@ public abstract class MessageHandler<T> {
     @SuppressWarnings("OverlyBroadCatchBlock")
     public void handleMessage(@NotNull Message message, @NotNull Long forUser) throws HandleException {
         try {
-            final Object data = new ObjectMapper().readValue(message.getContent(), clazz);
+            final T data = new ObjectMapper().readValue(message.getContent(), clazz);
 
             //noinspection ConstantConditions
-            handle(clazz.cast(data), forUser);
+            handle(data, forUser);
         } catch (IOException | ClassCastException ex) {
             throw new HandleException("Can't read incoming message of type " + message.getType() + " with content: " + message.getContent(), ex);
         }

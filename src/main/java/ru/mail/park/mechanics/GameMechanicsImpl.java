@@ -38,8 +38,8 @@ public class GameMechanicsImpl implements GameMechanics {
     @NotNull
     private GameSessionService gameSessionService;
 
-    @NotNull
-    private Set<Long> playingUsers = new HashSet<>();
+//    @NotNull
+//    private Set<Long> playingUsers = new HashSet<>();
 
     @NotNull
     private ConcurrentLinkedQueue<Long> waiters = new ConcurrentLinkedQueue<>();
