@@ -68,39 +68,39 @@ public class ClientSnapshotsService {
         final Coords body = positionPart.getBody();
         double vx = 0d;
         double vy = 0d;
-        double x;
-        double y;
+        double x = body.x;
+        double y = body.y;
 
         switch (button) {
             case "w": {
                 vx = -1 * (40 * sincos.sin);
                 vy = -1 * (40 * sincos.cos);
-                x = vx / 100 * frameTime;
-                y = vy / 100 * frameTime;
+                x += vx / 100 * frameTime;
+                y += vy / 100 * frameTime;
                 moveSquareBy(gameUser.getSquare(), x, y);
                 break;
             }
             case "s": {
                 vx = (40 * sincos.sin);
                 vy = (40 * sincos.cos);
-                x = vx / 100 * frameTime;
-                y = vy / 100 * frameTime;
+                x += vx / 100 * frameTime;
+                y += vy / 100 * frameTime;
                 moveSquareBy(gameUser.getSquare(), x, y);
                 break;
             }
             case "a": {
                 vx = -1 * (40 * sincos.cos);
                 vy = (40 * sincos.sin);
-                x = vx / 100 * frameTime;
-                y = vy / 100 * frameTime;
+                x += vx / 100 * frameTime;
+                y += vy / 100 * frameTime;
                 moveSquareBy(gameUser.getSquare(), x, y);
                 break;
             }
             case "f": {
                 vx = (40 * sincos.sin);
                 vy = -1 * (40 * sincos.cos);
-                x = vx / 100 * frameTime;
-                y = vy / 100 * frameTime;
+                x += vx / 100 * frameTime;
+                y += vy / 100 * frameTime;
                 moveSquareBy(gameUser.getSquare(), x, y);
                 break;
             }

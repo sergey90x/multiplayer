@@ -12,9 +12,7 @@ import ru.mail.park.websocket.MessageHandlerContainer;
 
 import javax.annotation.PostConstruct;
 
-/**
- * Created by Solovyev on 03/11/2016.
- */
+
 @Component
 public class JoinGameHandler extends MessageHandler<JoinGame.Request> {
     @NotNull

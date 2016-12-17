@@ -12,14 +12,12 @@ import java.time.Clock;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-/**
- * Created by Solovyev on 01/11/2016.
- */
+
 @Service
 public class MechanicsExecutor implements Runnable {
     @NotNull
     private static final Logger LOGGER = LoggerFactory.getLogger(MechanicsExecutor.class);
-    private static final long STEP_TIME = 1000;
+    private static final long STEP_TIME = 50;
 
     @NotNull
     private final GameMechanics gameMechanics;

@@ -7,9 +7,7 @@ import ru.mail.park.model.UserProfile;
 
 import java.io.IOException;
 
-/**
- * Created by Solovyev on 06/04/16.
- */
+
 public abstract class MessageHandler<T> {
     @NotNull
     private final Class<T> clazz;

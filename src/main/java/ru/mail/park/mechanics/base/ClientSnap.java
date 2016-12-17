@@ -37,6 +37,9 @@ public class ClientSnap {
 //        return coords;
 //    }
 
+    public ClientSnap() {
+    }
+
     public ClientSnap(@NotNull String button) {
         this.button = button;
     }
@@ -70,6 +73,7 @@ public class ClientSnap {
 //    public boolean isFiring() {
 //        return isFiring;
 //    }
+
 
     public long getFrameTime() {
         return frameTime;

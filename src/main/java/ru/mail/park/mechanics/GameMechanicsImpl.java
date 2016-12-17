@@ -13,9 +13,7 @@ import ru.mail.park.websocket.RemotePointService;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- * @author k.solovyev
- */
+
 @SuppressWarnings({"unused", "FieldMayBeFinal"})
 @Service
 public class GameMechanicsImpl implements GameMechanics {
