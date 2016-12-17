@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 public class MechanicsExecutor implements Runnable {
     @NotNull
     private static final Logger LOGGER = LoggerFactory.getLogger(MechanicsExecutor.class);
-    private static final long STEP_TIME = 50;
+    private static final long STEP_TIME = 1000;
 
     @NotNull
     private final GameMechanics gameMechanics;
