@@ -9,48 +9,76 @@ import org.jetbrains.annotations.NotNull;
 @SuppressWarnings({"NullableProblems", "unused"})
 public class ClientSnap {
 
+//    @NotNull
+//    private Coords coords;
+
     @NotNull
-    private Coords coords;
+    private Sincos sincos;
 
-    public void setCoords(Coords coords) {
-        this.coords = coords;
+    @NotNull
+    private String button;
+
+    private long frameTime;
+
+    public Sincos getSincos() {
+        return sincos;
     }
 
-    public Coords getCoords() {
-
-        return coords;
+    public void setSincos(Sincos sincos) {
+        this.sincos = sincos;
     }
 
-    //    @NotNull
+    //    public void setCoords(Coords coords) {
+//        this.coords = coords;
+//    }
+//
+//    public Coords getCoords() {
+//
+//        return coords;
+//    }
+
+    public ClientSnap(@NotNull String button) {
+        this.button = button;
+    }
+
+    public String getButton() {
+        return button;
+    }
+
+    public void setButton(String button) {
+        this.button = button;
+    }
+
+    //        @NotNull
 //    private Way direction;
+//
 //    @NotNull
 //    private Coords mouse;
 //    private boolean isFiring;
-//    private long frameTime;
-//
+
 //    @NotNull
 //    public Way getDirection() {
 //        return direction;
 //    }
-//
+
 //    @NotNull
 //    public Coords getMouse() {
 //        return mouse;
 //    }
-//
+
 //    @JsonProperty("isFiring")
 //    public boolean isFiring() {
 //        return isFiring;
 //    }
-//
-//    public long getFrameTime() {
-//        return frameTime;
-//    }
-//
+
+    public long getFrameTime() {
+        return frameTime;
+    }
+
 //    public void setDirection(@NotNull Way direction) {
 //        this.direction = direction;
 //    }
-//
+
 //    public void setMouse(@NotNull Coords mouse) {
 //        this.mouse = mouse;
 //    }
@@ -59,7 +87,7 @@ public class ClientSnap {
 //        isFiring = firing;
 //    }
 //
-//    public void setFrameTime(long frameTime) {
-//        this.frameTime = frameTime;
-//    }
+    public void setFrameTime(long frameTime) {
+        this.frameTime = frameTime;
+    }
 }

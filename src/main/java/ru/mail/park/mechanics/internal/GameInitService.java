@@ -10,6 +10,7 @@ import ru.mail.park.mechanics.Config;
 import ru.mail.park.mechanics.GameSession;
 import ru.mail.park.mechanics.avatar.GameUser;
 import ru.mail.park.mechanics.avatar.PositionPart;
+import ru.mail.park.mechanics.avatar.Square;
 import ru.mail.park.mechanics.base.Coords;
 import ru.mail.park.mechanics.base.ServerPlayerSnap;
 import ru.mail.park.mechanics.requests.InitGame;
@@ -38,17 +39,21 @@ public class GameInitService {
     }
 
     public void initGameFor(@NotNull GameSession gameSession) {
+//        gameSession.getFirst().getSquare().claimPart(PositionPart.class).setBody(new Coords(0.0f, 0.0f));
+//        gameSession.getSecond().getSquare().claimPart(PositionPart.class).setBody(
+//                new Coords(Config.PLAYGROUND_WIDTH - Config.SQUARE_SIZE,
+//                        Config.PLAYGROUND_HEIGHT - Config.SQUARE_SIZE)
+//        );
+
+
         gameSession.getFirst().getSquare().claimPart(PositionPart.class).setBody(new Coords(0.0f, 0.0f));
-        gameSession.getSecond().getSquare().claimPart(PositionPart.class).setBody(
-                new Coords(Config.PLAYGROUND_WIDTH - Config.SQUARE_SIZE,
-                        Config.PLAYGROUND_HEIGHT - Config.SQUARE_SIZE)
-        );
+        gameSession.getSecond().getSquare().claimPart((PositionPart.class)).setBody(new Coords(500.0f, 500.0f));
+
         final Collection<GameUser> players = new ArrayList<>();
         players.add(gameSession.getFirst());
         players.add(gameSession.getSecond());
         for (GameUser player : players) {
             final InitGame.Request initMessage = createInitMessageFor(gameSession, player.getId());    // Какой InitGame !!??
-            //noinspection OverlyBroadCatchBlock
             try {
                 final Message message = new Message(InitGame.Request.class.getName(),
                         objectMapper.writeValueAsString(initMessage));

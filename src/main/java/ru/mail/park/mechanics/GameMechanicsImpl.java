@@ -114,7 +114,7 @@ public class GameMechanicsImpl implements GameMechanics {
             clientSnapshotsService.processSnapshotsFor(session);
         }
 
-//        movementService.executeMoves();
+        movementService.executeMoves();
 
         final Iterator<GameSession> iterator = gameSessionService.getSessions().iterator();
         final List<GameSession> sessionsToTerminate = new ArrayList<>();

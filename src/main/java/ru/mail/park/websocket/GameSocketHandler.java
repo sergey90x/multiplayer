@@ -68,6 +68,7 @@ public class GameSocketHandler extends TextWebSocketHandler {
         handleMessage(user, message);
     }
 
+
     @SuppressWarnings("OverlyBroadCatchBlock")
     private void handleMessage(UserProfile userProfile, TextMessage text) {
 

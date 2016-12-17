@@ -26,7 +26,7 @@ public class MovementService {
             if (part == null) {
                 continue;
             }
-//            part.setBody(part.getLastDesirablePoint());
+            part.setBody(part.getLastDesirablePoint());
         }
     }
 

@@ -10,16 +10,14 @@ import ru.mail.park.mechanics.avatar.PositionPart;
 import ru.mail.park.mechanics.avatar.Square;
 import ru.mail.park.mechanics.base.ClientSnap;
 import ru.mail.park.mechanics.base.Coords;
+import ru.mail.park.mechanics.base.Sincos;
 import ru.mail.park.mechanics.base.Way;
 import ru.mail.park.model.Id;
 import ru.mail.park.model.UserProfile;
 
 import java.util.*;
 
-/**
- * Not thread safe! Per game mechanic service
- * Created by Solovyev on 03/11/2016.
- */
+
 @Service
 public class ClientSnapshotsService {
 
@@ -54,10 +52,9 @@ public class ClientSnapshotsService {
             }
             for (ClientSnap snap : playerSnaps) {
 //                processMovement(player, snap.getDirection(), snap.getFrameTime());
-
-                moveSquareBy(player.getSquare(), snap.getCoords());
+                processMovement(player, snap.getButton(), snap.getSincos(), snap.getFrameTime());
             }
-//            final ClientSnap lastSnap = playerSnaps.get(playerSnaps.size() - 1);
+            final ClientSnap lastSnap = playerSnaps.get(playerSnaps.size() - 1);
 //            processMouseMove(player, lastSnap.getMouse());
 
             //TODO:Firing
@@ -65,7 +62,55 @@ public class ClientSnapshotsService {
     }
 
 
-//    private void processMovement(@NotNull GameUser gameUser, @NotNull Way way, long frameTime) {
+    private void processMovement(@NotNull GameUser gameUser, String button, Sincos sincos, long frameTime) {
+
+        final PositionPart positionPart = gameUser.getSquare().claimPart(PositionPart.class);
+        final Coords body = positionPart.getBody();
+        double vx = 0d;
+        double vy = 0d;
+        double x;
+        double y;
+
+        switch (button) {
+            case "w": {
+                vx = -1 * (40 * sincos.sin);
+                vy = -1 * (40 * sincos.cos);
+                x = vx / 100 * frameTime;
+                y = vy / 100 * frameTime;
+                moveSquareBy(gameUser.getSquare(), x, y);
+                break;
+            }
+            case "s": {
+                vx = (40 * sincos.sin);
+                vy = (40 * sincos.cos);
+                x = vx / 100 * frameTime;
+                y = vy / 100 * frameTime;
+                moveSquareBy(gameUser.getSquare(), x, y);
+                break;
+            }
+            case "a": {
+                vx = -1 * (40 * sincos.cos);
+                vy = (40 * sincos.sin);
+                x = vx / 100 * frameTime;
+                y = vy / 100 * frameTime;
+                moveSquareBy(gameUser.getSquare(), x, y);
+                break;
+            }
+            case "f": {
+                vx = (40 * sincos.sin);
+                vy = -1 * (40 * sincos.cos);
+                x = vx / 100 * frameTime;
+                y = vy / 100 * frameTime;
+                moveSquareBy(gameUser.getSquare(), x, y);
+                break;
+            }
+            case "None": {
+                break;
+            }
+        }
+    }
+
+//        private void processMovement(@NotNull GameUser gameUser, @NotNull Way way, long frameTime) {
 //        final PositionPart positionPart = gameUser.getSquare().claimPart(PositionPart.class);
 //        final Coords body = positionPart.getBody();
 //        switch (way) {
@@ -91,20 +136,19 @@ public class ClientSnapshotsService {
 //        }
 //    }
 
-    private void moveSquareBy(@NotNull Square square, Coords body) {
 
-        final PositionPart positionPart = square.claimPart(PositionPart.class);
-        positionPart.setBody(body);
-//        final Coords lastDesirablePoint = positionPart.getLastDesirablePoint();
-//        final double newX = Math.min(Config.PLAYGROUND_WIDTH - Config.SQUARE_SIZE, lastDesirablePoint.x + dx);
-//        final double newY = Math.min(Config.PLAYGROUND_HEIGHT - Config.SQUARE_SIZE, lastDesirablePoint.y + dy);
-//        positionPart.addDesirableCoords(new Coords(newX, newY));
-        movementService.registerObjectToMove(square);
-    }
+    private void moveSquareBy(@NotNull Square square, double dx, double dy) {
+            final PositionPart positionPart = square.claimPart(PositionPart.class);
+//            final Coords lastDesirablePoint = positionPart.getLastDesirablePoint();
+//            final double newX = Math.min(Config.PLAYGROUND_WIDTH - Config.SQUARE_SIZE, lastDesirablePoint.x + dx);
+//            final double newY = Math.min(Config.PLAYGROUND_HEIGHT - Config.SQUARE_SIZE, lastDesirablePoint.y + dy);
+            positionPart.addDesirableCoords(new Coords(dx, dy));
+            movementService.registerObjectToMove(square);
+        }
 
-    private void processMouseMove(@NotNull GameUser gameUser, @NotNull Coords mouse) {
-        gameUser.getSquare().claimPart(MousePart.class).setMouse(mouse);
-    }
+//    private void processMouseMove(@NotNull GameUser gameUser, @NotNull Coords mouse) {
+//        gameUser.getSquare().claimPart(MousePart.class).setMouse(mouse);
+//    }
 
 
     public void clear() {

@@ -19,41 +19,41 @@ public class PositionPart implements GamePart {
     @NotNull
     private Coords body;
 
-//    @NotNull
-//    private Direction movingTo;
+    @NotNull
+    private Direction movingTo;
 
-//    @NotNull
-//    private final List<Coords> desirablePath = new ArrayList<>();
+    @NotNull
+    private final List<Coords> desirablePath = new ArrayList<>();
 
     public PositionPart() {
         body = new Coords(0.0f, 0.0f);
 
-//        movingTo = Way.None.getRadial();
+        movingTo = Way.None.getRadial();
     }
 
-//    public void executeMovement() {
-//        if(!desirablePath.isEmpty()) {
-//            body = desirablePath.get(desirablePath.size() - 1);
-//        }
-//        desirablePath.clear();
-//    }
+    public void executeMovement() {
+        if(!desirablePath.isEmpty()) {
+            body = desirablePath.get(desirablePath.size() - 1);
+        }
+        desirablePath.clear();
+    }
 
-//    @NotNull
-//    public List<Coords> getDesirablePath() {
-//        return desirablePath;
-//    }
+    @NotNull
+    public List<Coords> getDesirablePath() {
+        return desirablePath;
+    }
 
-//    @NotNull
-//    public Coords getLastDesirablePoint() {
-//        if (desirablePath.isEmpty()) {
-//            return body;
-//        }
-//        return desirablePath.get(desirablePath.size() - 1);
-//    }
+    @NotNull
+    public Coords getLastDesirablePoint() {
+        if (desirablePath.isEmpty()) {
+            return body;
+        }
+        return desirablePath.get(desirablePath.size() - 1);
+    }
 
-//    public void addDesirableCoords(@Nullable Coords desirableCoords) {
-//        desirablePath.add(desirableCoords);
-//    }
+    public void addDesirableCoords(@Nullable Coords desirableCoords) {
+        desirablePath.add(desirableCoords);
+    }
 
     @NotNull
     public Coords getBody() {
@@ -64,14 +64,14 @@ public class PositionPart implements GamePart {
         this.body = body;
     }
 
-//    @NotNull
-//    public Direction getMovingTo() {
-//        return movingTo;
-//    }
-//
-//    public void setMovingTo(@NotNull Direction movingTo) {
-//        this.movingTo = movingTo;
-//    }
+    @NotNull
+    public Direction getMovingTo() {
+        return movingTo;
+    }
+
+    public void setMovingTo(@NotNull Direction movingTo) {
+        this.movingTo = movingTo;
+    }
 
     @Override
     public boolean shouldBeSnaped() {
@@ -86,12 +86,12 @@ public class PositionPart implements GamePart {
     public static final class PositionSnap implements Snap<PositionPart> {
         @NotNull
         private final Coords body;
-//        @NotNull
-//        private final Direction movingTo;
+        @NotNull
+        private final Direction movingTo;
 
         public PositionSnap(@NotNull PositionPart positionPart) {
             body = positionPart.body;
-//            movingTo = positionPart.movingTo;
+            movingTo = positionPart.movingTo;
         }
 
         @NotNull
@@ -104,9 +104,9 @@ public class PositionPart implements GamePart {
         public Coords getBody() {
             return body;
         }
-//        @NotNull
-//        public Direction getMovingTo() {
-//            return movingTo;
-//        }
+        @NotNull
+        public Direction getMovingTo() {
+            return movingTo;
+        }
     }
 }

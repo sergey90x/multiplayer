@@ -10,7 +10,8 @@ import java.util.List;
 @SuppressWarnings({"NullableProblems", "unused"})
 public class ServerSnap {
 
-    @NotNull List<ServerPlayerSnap> players;
+    @NotNull
+    public List<ServerPlayerSnap> players;
 //    private long serverFrameTime;
 
     @NotNull

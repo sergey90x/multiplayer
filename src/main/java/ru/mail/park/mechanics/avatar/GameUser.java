@@ -13,7 +13,8 @@ public class GameUser {
     private final UserProfile userProfile;
     @NotNull
 //    private final TimingPart timingPart;
-    private final Square square;
+//    private final Square square;
+    private  Square square;
 
     //TODO: Collider
 
@@ -34,6 +35,10 @@ public class GameUser {
         return userProfile;
     }
 
+    public void setSquare(Square ob){
+        this.square = ob;
+    }
+
     public Square getSquare() {
         return square;
     }
@@ -42,6 +47,7 @@ public class GameUser {
     public Long getId() {
         return userProfile.getId();
     }
+
 
     @NotNull
     public ServerPlayerSnap generateSnap() {

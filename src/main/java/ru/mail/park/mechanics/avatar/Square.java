@@ -1,5 +1,6 @@
 package ru.mail.park.mechanics.avatar;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jetbrains.annotations.NotNull;
 import ru.mail.park.mechanics.game.GameObject;
 import ru.mail.park.mechanics.game.GamePart;
@@ -11,6 +12,31 @@ import java.util.List;
 /**
  * Created by Solovyev on 04/11/2016.
  */
+
+
+
+//public class Square{
+//
+//    @NotNull
+//    public Integer x;
+//    @NotNull
+//    public Integer y;
+//    @NotNull
+//    private Id<GameObject> id;
+//
+//    public Square(){}
+//
+//    public Square(@JsonProperty("x") Integer x, @JsonProperty("y") Integer y) {
+//        this.x = x;
+//        this.y = y;
+//    }
+//
+//
+//
+//
+//}
+
+
 public class Square extends GameObject {
 
     public Square() {
